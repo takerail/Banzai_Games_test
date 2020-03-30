@@ -55,9 +55,29 @@ Perk HELM_BREAKER
   attackDamageFactor = 5850
   chance = 0.2
   iconFrames = 300
+  initialBoostFrames = 60
+  restrictionFrames = 600
   defense = "HeadDefense"
-
-  Trigger HELM_BREAKER_BOOST
+  
+  Trigger HELM_BREAKER_INITIAL_RESTRICTION
+  {
+    Event
+    {
+      return "FightStart"
+    }
+    
+    Condition
+    {
+      return true
+    }
+    
+    Action
+    {
+      ModIcon ( Name="Head_Breaker_restriction", Frames = restrictionFrames, Player="Enemy")
+    }
+  }
+  
+  Trigger HELM_BREAKER_INITIAL_BOOST
   {
     Event
     {
@@ -66,14 +86,52 @@ Perk HELM_BREAKER
     
     Condition
     {
-      return AND ( event.Target=="Enemy", event.Defense==defense, not event.Block, random() < chance, not ModExists ( Name = "Icon" ) )
+      return AND ( not ModExists( Name = "Head_Breaker_restriction" ), event.Target=="Enemy", event.Defense==defense, not event.Block, random() < chance, not ModExists ( Name = "Icon" ),
+      not ModExists( Name = "Initial_Boost_Icon" )
     }
     
     Action
     {
-      ModIcon ( Name="Icon", Frames=iconFrames, Player="Enemy" )
+      ModIcon ( Name="Initial_Boost_Icon", Frames=initialBoostFrames, Player="Enemy" )
     }
   }
+  
+  Trigger HELM_BREAKER_BOOST
+  {
+    Event
+    {
+      return "ModExpires"
+    }
+    
+    Condition
+    {
+      return event.Name="Initial_Boost_Icon"
+    }
+    
+    Action
+    {
+      ModIcon ( Name="Icon", Frames=iconFrames-initialBoostFrames, Player="Enemy" )
+    }
+  }
+  
+  Trigger HELM_BREAKER_INITIAL_BOOST_END
+  {
+    Event
+    {
+      return "PreHit"
+    }
+    
+    Condition
+    {
+      return AND ( event.Player="Enemy", event.Defense=defense, not event.Block, ModExists ( Name = "Initial_Boost_Icon" ) )
+    }
+    
+    Action
+    {
+      ModAttributes ( DamageFactor=attackDamageFactor*2, Frames="1" )
+    }
+  }
+  
   Trigger HELM_BREAKER_BOOST_END
   {
     Event
