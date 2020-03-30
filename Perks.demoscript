@@ -86,8 +86,8 @@ Perk HELM_BREAKER
     
     Condition
     {
-      return AND ( not ModExists( Name = "Head_Breaker_restriction" ), event.Target=="Enemy", event.Defense==defense, not event.Block, random() < chance, not ModExists ( Name = "Icon" ),
-      not ModExists( Name = "Initial_Boost_Icon" )
+      return AND (  event.Target=="Enemy", event.Defense==defense, not event.Block, random() < chance, 
+      not ModExists( Name = "Head_Breaker_restriction" ), not ModExists ( Name = "Icon" ), not ModExists( Name = "Initial_Boost_Icon" )
     }
     
     Action
