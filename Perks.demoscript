@@ -25,6 +25,30 @@ Perk TOUGH_BODY
   }
 }
 
+Perk TOUGH_HEAD
+{
+  defenseDamageFactor=-15850
+  chance=0.25
+  defense="HeadDefense"
+
+  Trigger TOUGH_HEAD
+  {
+    Event
+    {
+      return "PreHit"
+    }
+    
+    Condition
+    {
+      return AND ( event.Target=="Me", event.Defense==defense, event.Critical, random() < chance )
+    }
+    
+    Action
+    {
+      ModAttributes ( Player="Enemy", DamageFactor=defenseDamageFactor, Frames=1 )
+    }
+  }
+}
 
 Perk HELM_BREAKER
 {
