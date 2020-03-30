@@ -107,7 +107,7 @@ Perk HELM_BREAKER
     
     Condition
     {
-      return event.Name="Initial_Boost_Icon"
+      return event.Name=="Initial_Boost_Icon"
     }
     
     Action
@@ -125,7 +125,7 @@ Perk HELM_BREAKER
     
     Condition
     {
-      return AND ( event.Player="Enemy", event.Defense=defense, not event.Block, ModExists ( Name = "Initial_Boost_Icon" ) )
+      return AND ( event.Player=="Enemy", event.Defense==defense, not event.Block, ModExists ( Name = "Initial_Boost_Icon" ) )
     }
     
     Action
@@ -143,7 +143,7 @@ Perk HELM_BREAKER
     
     Condition
     {
-      return AND ( event.Player="Enemy", event.Defense=defense, not event.Block, ModExists ( Name = "Icon" ) )
+      return AND ( event.Player=="Enemy", event.Defense==defense, not event.Block, ModExists ( Name = "Icon" ) )
     }
     
     Action
@@ -169,7 +169,7 @@ Perk SHIELDING
     
     Condition
     {
-      return AND ( event.Target=="Me", event.Damage> threshold, not ModExists ( "Shielding" )  )
+      return AND ( event.Target=="Me", event.Damage> threshold, not ModExists ( Name = "Shielding" )  )
     }
     
     Action
@@ -296,7 +296,7 @@ Perk RAGE
     
     Condition
     {
-      return not ModExists ( "Icon" )
+      return not ModExists ( Name = "Icon" )
     }
     
     Action
