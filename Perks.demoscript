@@ -318,7 +318,7 @@ Perk RAGE
     
     Action
     {
-      ModAttributes ( Name="StackedBonus", DamageFactor=defenseDamageFactor, Player="Me" )
+      ModAttributes ( Name="StackedBonus", DamageFactor=attackDamageFactor, Player="Me" )
     }
   }
   
