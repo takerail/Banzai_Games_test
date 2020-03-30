@@ -30,6 +30,7 @@ Perk TOUGH_HEAD
   defenseDamageFactor=-15850
   chance=0.25
   defense="HeadDefense"
+  iconFrames=90
 
   Trigger TOUGH_HEAD
   {
@@ -46,6 +47,7 @@ Perk TOUGH_HEAD
     Action
     {
       ModAttributes ( Player="Enemy", DamageFactor=defenseDamageFactor, Frames=1 )
+      ModIcon ( Name="Icon", Frames=iconFrames )
     }
   }
 }
