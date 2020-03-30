@@ -278,7 +278,7 @@ Perk RAGE
     
     Condition
     {
-      return true
+      return event.Target=="Enemy"
     }
     
     Action
