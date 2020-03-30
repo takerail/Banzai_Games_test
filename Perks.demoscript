@@ -269,7 +269,7 @@ Perk RAGE
     }
   }
   
-  Trigger RAGE_FAIL
+  Trigger RAGE_CHECK
   {
     Event
     {
@@ -278,13 +278,12 @@ Perk RAGE
     
     Condition
     {
-      return not ModExists(Name = "Rage_success")
+      return true
     }
     
     Action
     {
-      ClearMods ( Name="StackedBonus" )
-      ClearMods ( Name="Icon" )
+      CreateEvent ( "Check" )
     }
   }
   
@@ -324,5 +323,22 @@ Perk RAGE
     }
   }
   
-  
+  Trigger RAGE_FAIL_CHECK
+  {
+    Event
+    {
+      return "Check"
+    }
+    
+    Condition
+    {
+      return not ModExists(Name = "Rage_success")
+    }
+    
+    Action
+    {
+      ClearMods ( Name="StackedBonus" )
+      ClearMods ( Name="Icon" )
+    }
+  } 
 }
