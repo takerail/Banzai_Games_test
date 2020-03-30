@@ -262,10 +262,12 @@ Perk RAGE
     
     Action
     {
+      ModFlag (Name = "Rage_success", Frames=1)
       CreateEvent ( "Success" )
     }
   }
-  Trigger RAGE_CHECK_FAIL
+  
+  Trigger RAGE_FAIL
   {
     Event
     {
@@ -274,14 +276,16 @@ Perk RAGE
     
     Condition
     {
-      return AND ( event.Target=="Enemy", not event.Block, random() >= attackBoostChance )
+      return not ModExists(Name = "Rage_success")
     }
     
     Action
     {
-      CreateEvent ( "Fail" )
+      ClearMods ( Name="StackedBonus" )
+      ClearMods ( Name="Icon" )
     }
   }
+  
   Trigger RAGE_SUCCESS_ICON
   {
     Event
@@ -299,6 +303,7 @@ Perk RAGE
       ModIcon ( Name="Icon" )
     }
   }
+  
   Trigger RAGE_SUCCESS_DAMAGE
   {
     Event
@@ -316,22 +321,6 @@ Perk RAGE
       ModAttributes ( Name="StackedBonus", DamageFactor=defenseDamageFactor, Player="Me" )
     }
   }
-  Trigger RAGE_FAIL
-  {
-    Event
-    {
-      return "Fail"
-    }
-    
-    Condition
-    {
-      return true
-    }
-    
-    Action
-    {
-      ClearMods ( Name="StackedBonus" )
-      ClearMods ( Name="Icon" )
-    }
-  }
+  
+  
 }
