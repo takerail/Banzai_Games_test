@@ -123,12 +123,13 @@ Perk SHIELDING
 
 Perk FITNESS
 {
-  attackBoostChance = 0.3
+  unarmedAttackBoostChance = 0.3
+  weaponAttackBoostChance = 0.02
   defenseBoostChance = 0.1
   attackDamageFactor = 10000
   defenseDamageFactor = -66439
 
-  Trigger FITNESS_ATTACK
+  Trigger FITNESS_UNARMED_ATTACK
   {
     Event
     {
@@ -137,7 +138,7 @@ Perk FITNESS
     
     Condition
     {
-      return AND ( event.Target=="Enemy", event.Animation=="Unarmed", random() < attackBoostChance )
+      return AND ( event.Target=="Enemy", event.Animation=="Unarmed", random() < unarmedAttackBoostChance )
     }
     
     Action
@@ -145,6 +146,25 @@ Perk FITNESS
       ModAttributes ( DamageFactor=attackDamageFactor, Frames=1, Player="Me" )
     }
   }
+  
+  Trigger FITNESS_WEAPON_ATTACK
+  {
+    Event
+    {
+      return "PreHit"
+    }
+    
+    Condition
+    {
+      return AND ( event.Target=="Enemy", event.Animation=="Weapon", random() < weaponAttackBoostChance )
+    }
+    
+    Action
+    {
+      ModAttributes ( DamageFactor=attackDamageFactor, Frames=1, Player="Me" )
+    }
+  }
+  
   Trigger FITNESS_DEFENSE
   {
     Event
