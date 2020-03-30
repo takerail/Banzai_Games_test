@@ -156,7 +156,8 @@ Perk SHIELDING
 {
   damageFactor=-10000
   frames=300
-  chance=0.3
+  maxHealth = 100
+  threshold=0.3
 
   Trigger SHIELDING
   {
@@ -167,7 +168,7 @@ Perk SHIELDING
     
     Condition
     {
-      return AND ( event.Target=="Me", random () < chance, not ModExists ( "Shielding" )  )
+      return AND ( event.Target=="Me", event.Damage/maxHealth > threshold, not ModExists ( "Shielding" )  )
     }
     
     Action
