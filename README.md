@@ -85,3 +85,5 @@ fasle && ... = false
 - В блок action триггера RAGE_CHECK_SUCCESS добавлена функция ModFlag (Name = "Rage_success", Frames=1), т.е. при успешной проверке condition на персонажа вешается эффект "Rage_success" на один кадр
 - Триггер RAGE_CHECK_FAIL удаляется
 - на место предыдущего триггера переносится RAGE_FAIL, event этого триггера заменяется на return "PreHit", чтобы он срабатывал каждый удар, condition меняется на return not ModExists(Name = "Rage_success"), чтобы триггер срабатывал только если в этот кадр не сработал триггер RAGE_CHECK_SUCCESS, action остается без изменений (т.е удаляются экземпляры баффа и его иконка)
+
+Примечание: в триггере RAGE_SUCCESS_DAMAGE вместо attackDamageFactor (константа, объявленная в перке) указана константа defenseDamageFactor, что вызовет ошибку (вероятна опечатка, не влияющая на логику перка, но блокирующая возможность его работы). Исправляется ctrl+c -> ctrl+v
