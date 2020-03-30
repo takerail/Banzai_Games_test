@@ -13,3 +13,24 @@
 - в условии срабатывания триггера TOUGH_HEAD удалено свойство event.Block и добавлено свойство event.Critical (т.к заблокированный удар
 не может быть критическим, следовательно свойство блока излишне)
 
+Задача 2:
+Изучите перк FITNESS и измените его так, чтобы он, не меняя вероятности срабатывания
+при ударе без оружия, с вероятностью 0.02 в 2 раза увеличивал урон по противнику любым ударом.
+
+Решение:
+Задача была решена путем добавления нового триггера для удара с оружием:
+- для удобства константа attackBoostChance переименована в unarmedAttackBoostChance
+- триггер FITNESS_ATTACK переименован в FITNESS_UNARMED_ATTACK
+- добавлена констата weaponAttackBoostChance = 0.02
+- добавлен триггер FITNESS_WEAPON_ATTACK, идентичный триггеру FITNESS_UNARMED_ATTACK, за исключением шанса срабатывания (weaponAttackBoostChance) и свойства event.Animation=="Weapon"
+Таким образом, для данного перка, при срабатывание события "PreHit" проверяются условия для двух триггеров:
+1) Если удар совершен без оружия - с шансом 0.3 срабатывает триггер FITNESS_UNARMED_ATTACK
+2) Если удар совершен с оружием - с шансом 0.02 срабатывает триггер FITNESS_WEAPON_ATTACK
+
+Возможно задачу следовало решить путем изменения условия триггера FITNESS_ATTACK на следующее:
+Condition
+    {
+      return OR (AND ( event.Target=="Enemy", event.Animation=="Unarmed", random() < unarmedAttackBoostChance )),
+      (AND ( event.Target=="Enemy", event.Animation=="Weapon", random() < weaponAttackBoostChance ))
+    }
+Но на мой взгляд предложенное мной решение нагляднее, хоть и более громоздко
